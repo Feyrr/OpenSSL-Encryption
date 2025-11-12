@@ -6,8 +6,6 @@ Two main methods are included:
 1. **Password-based encryption** (PBKDF2 + AES-256-CBC)  
 2. **Key-file-based encryption** (AES-256-CBC with raw key)
 
----
-
 ## 1️⃣ Password-Based Encryption
 
 Password-based encryption uses a passphrase to derive the encryption key using PBKDF2.
@@ -29,8 +27,6 @@ openssl enc -aes-256-cbc -md sha512 -pbkdf2 -iter 100000 -salt -in plaintext.txt
 - `-in plaintext.txt` → Input plaintext file to encrypt  
 - `-out secret.enc` → Output encrypted file  
 
----
-
 ### Step 2: Decrypt a file
 
 ```bash
@@ -38,8 +34,6 @@ openssl enc -aes-256-cbc -md sha512 -pbkdf2 -iter 100000 -salt -d -in secret.enc
 ```
 
 - Enter the **same password** used for encryption.
-
----
 
 ### Optional: Shell helper functions
 
@@ -59,8 +53,6 @@ Usage:
 openssl-encrypt myfile.txt myfile.enc
 openssl-decrypt myfile.enc myfile.txt
 ```
-
----
 
 ## 2️⃣ Key-File-Based Encryption
 
@@ -82,8 +74,6 @@ openssl rand -out iv.bin 16
 - `openssl rand -out keyfile.bin 32` → Generates 32 random bytes for the AES-256 key  
 - `openssl rand -out iv.bin 16` → Generates 16 random bytes for the AES CBC IV  
 
----
-
 ### Step 2: Encrypt a file using the key file
 
 ```bash
@@ -100,8 +90,6 @@ openssl enc -aes-256-cbc -in plaintext.txt -out secret.enc \
 - `-K $(xxd -p -c 256 keyfile.bin)` → Use the raw key from keyfile (converted to hex)  
 - `-iv $(xxd -p -c 256 iv.bin)` → Use the initialization vector from iv.bin (converted to hex)  
 
----
-
 ### Step 3: Decrypt a file using the key file
 
 ```bash
@@ -111,8 +99,6 @@ openssl enc -aes-256-cbc -d -in secret.enc -out decrypted.txt \
 ```
 
 - Make sure to use the **same key** and **same IV** used for encryption.
-
----
 
 ### Optional: Shell helper functions for key-file encryption
 
@@ -136,8 +122,6 @@ Usage:
 openssl-encrypt-key myfile.txt myfile.enc
 openssl-decrypt-key myfile.enc myfile.txt
 ```
-
----
 
 ## ⚠️ Security Notes
 
